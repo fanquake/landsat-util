@@ -238,8 +238,12 @@ class Downloader(VerbosityMixin):
             filename = '%s_B%s.TIF' % (sat['scene'], band)
         else:
             filename = '%s_%s.txt' % (sat['scene'], band)
-
-        return url_builder([self.s3, sat['sat'], sat['path'], sat['row'], sat['scene'], filename])
+            
+        if len(sat['scene']) == 40:
+            # bucket/c1/L8/path/row/scene_id/scene_id_ B*.TIF
+            return url_builder([self.s3, 'c1', sat['sat'], sat['path'], sat['row'], sat['scene'], filename])
+        else:
+            return url_builder([self.s3, sat['sat'], sat['path'], sat['row'], sat['scene'], filename])
 
     def remote_file_exists(self, url):
         """ Checks whether the remote file exists.
@@ -302,6 +306,11 @@ class Downloader(VerbosityMixin):
             anatomy['row'] = scene[6:9]
             anatomy['sat'] = 'L' + scene[2:3]
 
+            return anatomy
+        elif isinstance(scene, str) and len(scene) == 40:
+            anatomy['path'] = scene[10:13]
+            anatomy['row'] = scene[13:16]
+            anatomy['sat'] = 'L' + scene[3:4]
             return anatomy
         else:
             raise IncorrectSceneId('Received incorrect scene')
