@@ -137,7 +137,7 @@ class Downloader(VerbosityMixin):
         sat = self.scene_interpreter(scene)
 
         # Always grab MTL.txt and QA band if bands are specified
-        if 'BQA' not in bands:
+        if 'QA' not in bands:
             bands.append('QA')
 
         if 'MTL' not in bands:
