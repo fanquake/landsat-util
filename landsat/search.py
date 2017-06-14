@@ -148,7 +148,8 @@ class Search(object):
                                       'row': three_digit(i['row']),
                                       'thumbnail': i['browseURL'],
                                       'date': i['acquisitionDate'],
-                                      'cloud': i['cloudCoverFull']}
+                                      'cloud': i['cloudCoverFull'],
+                                      'productID': i['LANDSAT_PRODUCT_ID']}
                                      for i in r_dict['results']]
 
         return result
