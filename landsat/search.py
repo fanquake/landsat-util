@@ -118,7 +118,8 @@ class Search(object):
                             'path': three_digit(r['path']),
                             'thumbnail': r['browseURL'],
                             'date': r['acquisitionDate'],
-                            'cloud': r['cloudCoverFull']
+                            'cloud': r['cloudCoverFull'],
+                            'productID': r['LANDSAT_PRODUCT_ID']
                         },
                         'geometry': {
                             'type': 'Polygon',
